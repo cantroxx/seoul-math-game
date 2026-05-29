@@ -149,12 +149,12 @@
     <h1 class="bigtitle">서울 탈환 작전</h1>
     <p class="sub2">외계인이 서울을 점령했다! 붉게 물든 도시를 되찾아라.<br>수학으로 무장하고 외계인 거점을 해방하면 작전 성공이다.</p>
     <div class="rules">
-      🔵 <b style="color:var(--free)">파란 안전구역(9곳)</b> — 아직 시민이 버티는 우리 편 구역. 들어가서 문제 1개를 풀면 경험치(1~3)를 얻어요. 성공하면 금색이 되고 재입장 불가. 틀려도 <b>체력은 깎이지 않지만</b> 진입이 거부되어 잠기며, 다른 구를 다녀온 뒤 다시 와야 해요.<br>
-      🔴 <b style="color:var(--danger)">붉은 외계인 구역(16곳)</b> — 동 3개에 미션(대장 외계인 또는 보급 상자)이 숨어 있어요. 대장 외계인의 정체는 들어가야 드러납니다!<br>
-      🎖️ <b>계급 = 공격력</b> — 경험치 10마다 승급. 연구자(💥1)→정복자(💥2)→처단자(💥3). 계급이 높을수록 대장 외계인을 적은 문제로 처치!<br>
-      👾 <b>대장 외계인</b> — 체력 6 또는 9. 명중 1번에 공격력만큼 감소해요. <b style="color:var(--danger)">한 문제라도 틀리면 후퇴!</b> 단, 깎아둔 체력은 유지돼서 다시 가면 이어서 싸웁니다.<br>
+      🔵 <b style="color:var(--free)">파란 안전구역(9곳)</b> — 우리 편 구역. 문제 1개를 풀면 경험치를 얻어요(3점 3곳·2점 5곳·1점 1곳, 합계 20). 성공하면 금색이 되고 재입장 불가. 틀려도 <b>체력은 깎이지 않지만</b> 진입이 거부되어 잠기며, 다른 구를 다녀온 뒤 다시 와야 해요. <b>9곳을 모두 탈환하면 최고 계급(처단자)!</b><br>
+      🔴 <b style="color:var(--danger)">붉은 외계인 구역(16곳)</b> — 동 3개에 외계인 또는 보급 상자가 숨어 있어요. 정체는 들어가야 드러납니다!<br>
+      🎖️ <b>계급 = 공격력</b> — 경험치 10마다 승급. 연구자(💥1)→정복자(💥2)→처단자(💥3). 계급이 높을수록 강한 외계인을 적은 문제로 처치!<br>
+      👾 <b>외계인 등급</b> — 대장(체력9·3마리), 괴물(체력6·6마리), 일반(체력1·여럿). 명중 1번에 공격력만큼 감소. <b style="color:var(--danger)">한 문제라도 틀리면 후퇴!</b> 단, 깎아둔 체력은 유지돼서 다시 가면 이어서 싸웁니다.<br>
       ❤️ <b>체력 50</b> — 오답이면 -5. 0이 되면 긴급구조대가 문제 5개를 내고 체력을 20 채워줘요.<br>
-      📦 <b>보급 상자</b> — 회복제(체력+20) / 퇴치권(대장 외계인 즉시 처치)<br>
+      📦 <b>보급 상자(12곳)</b> — 회복제 6곳(체력+20) / 퇴치권 6장(일반 외계인만 즉시 처치, 대장·괴물에는 사용 불가)<br>
       🏁 한 구역의 미션을 모두 끝내면 붉은 구가 금색으로 해방됩니다.
     </div>
     <div class="difftitle">난이도를 선택하세요</div>
@@ -276,18 +276,26 @@ function rankOf(exp){return exp>=20?2:exp>=10?1:0;}
 function freshState(diff){
   const names=shuffle(ALL_GU.map(g=>g.name));
   const alienNames=names.slice(0,16), safeNames=names.slice(16);
+  // 48개 영역(16구 x 3동) 고정 구성
+  const pool=[];
+  for(let i=0;i<6;i++)pool.push({kind:'item',item:'hp'});            // 회복제 6
+  for(let i=0;i<6;i++)pool.push({kind:'item',item:'kill'});          // 퇴치권 6
+  for(let i=0;i<3;i++)pool.push({kind:'enemy',tier:'대장',hp:9});    // 대장 3
+  for(let i=0;i<6;i++)pool.push({kind:'enemy',tier:'괴물',hp:6});    // 괴물 6
+  for(let i=0;i<27;i++)pool.push({kind:'enemy',tier:'외계인',hp:1}); // 일반 21 + 채움 6 = 27
+  shuffle(pool); // 48개
   const gus={};
-  alienNames.forEach(g=>{
-    // 동 3개: 최소 1개는 보스, 나머지는 보스 또는 아이템
+  alienNames.forEach((g,gi)=>{
     const dongs=DONGS[g].map((nm,i)=>{
-      const isBoss=Math.random()<0.55;
-      if(isBoss){const hp=Math.random()<0.5?6:9;return{id:g+'-'+i,name:nm,kind:'boss',hp,maxhp:hp,done:false};}
-      return{id:g+'-'+i,name:nm,kind:'item',item:Math.random()<0.5?'hp':'kill',done:false};
+      const c=pool[gi*3+i];
+      if(c.kind==='enemy')return{id:g+'-'+i,name:nm,kind:'enemy',tier:c.tier,hp:c.hp,maxhp:c.hp,done:false};
+      return{id:g+'-'+i,name:nm,kind:'item',item:c.item,done:false};
     });
-    if(!dongs.some(d=>d.kind==='boss')){const d=dongs[Math.floor(Math.random()*3)];const hp=Math.random()<0.5?6:9;d.kind='boss';d.hp=hp;d.maxhp=hp;delete d.item;}
     gus[g]={type:'alien',liberated:false,dongs};
   });
-  safeNames.forEach(g=>{gus[g]={type:'safe',claimed:false};});
+  // 안전구역 9곳 경험치: 3점x3곳, 2점x5곳, 1점x1곳 = 합계 20
+  const expVals=shuffle([3,3,3,2,2,2,2,2,1]);
+  safeNames.forEach((g,i)=>{gus[g]={type:'safe',claimed:false,expVal:expVals[i]};});
   return {hp:50,maxHp:50,exp:0,rankIdx:0,libAlien:0,kill:0,gus,lockedGu:null,curGu:null,diff,target:DIFF[diff].target};
 }
 
@@ -404,7 +412,7 @@ function refreshHUD(){
 
 /* ============================================================ 체력/경험치 */
 function loseHP(){S.hp=Math.max(0,S.hp-5);refreshHUD();if(S.hp<=0){setTimeout(rescueMission,400);return true;}return false;}
-function gainExp(){const g=1+Math.floor(Math.random()*3);S.exp+=g;const nr=rankOf(S.exp);refreshHUD();if(nr>S.rankIdx){S.rankIdx=nr;refreshHUD();toast('🎖️ 계급 상승! '+RANKS[nr].name+' (공격력 '+RANKS[nr].atk+')');}return g;}
+function gainExp(amount){const g=amount;S.exp+=g;const nr=rankOf(S.exp);refreshHUD();if(nr>S.rankIdx){S.rankIdx=nr;refreshHUD();toast('🎖️ 계급 상승! '+RANKS[nr].name+' (공격력 '+RANKS[nr].atk+')');}return g;}
 
 /* ============================================================ 문제 생성 */
 function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
@@ -435,7 +443,7 @@ function renderQuestion(opt){
   const fb=document.getElementById('qFeedback');fb.textContent='';fb.className='feedback';
   const bc=document.getElementById('qButtons');bc.innerHTML='';
   const sb=document.createElement('button');sb.className='btn go';sb.textContent='발사! 🚀';sb.onclick=submit;bc.appendChild(sb);
-  if(opt.allowKill&&S.kill>0){const kb=document.createElement('button');kb.className='btn';kb.style.borderColor='var(--alien)';kb.textContent='💥 퇴치권 (즉시 처치)';kb.onclick=()=>{S.kill--;refreshHUD();sGood();fb.textContent='💥 퇴치권 발동! 대장 외계인 처치!';fb.className='feedback good';bc.innerHTML='';setTimeout(opt.onKill,420);};bc.appendChild(kb);}
+  if(opt.allowKill&&S.kill>0){const kb=document.createElement('button');kb.className='btn';kb.style.borderColor='var(--alien)';kb.textContent='💥 퇴치권 (즉시 처치)';kb.onclick=()=>{S.kill--;refreshHUD();sGood();fb.textContent='💥 퇴치권 발동! 외계인 즉시 처치!';fb.className='feedback good';bc.innerHTML='';setTimeout(opt.onKill,420);};bc.appendChild(kb);}
   function submit(){const ok=p.fields.every((f,i)=>{const v=inputs[i].value.trim();return v!==''&&Number(v)===f.ans;});ok?good():bad();}
   function good(){sGood();fb.textContent='정답! 명중! 💥';fb.className='feedback good';bc.innerHTML='';setTimeout(()=>opt.onCorrect(),420);}
   function bad(){sBad();fb.textContent=opt.wrongMsg||'빗나갔다! 체력 -5 😖';fb.className='feedback bad';bc.innerHTML='';opt.onWrong&&opt.onWrong();}
@@ -457,10 +465,10 @@ function clickGu(name){
 function safeGuProblem(name){
   showProblem({
     title:'안전구역 탈환 — '+name,
-    sub:'암호(정답)를 맞히면 경험치를 얻어요. <b style="color:var(--gold)">틀리면 진입이 거부되어 잠깁니다!</b>',
+    sub:'암호(정답)를 맞히면 경험치 <b style="color:var(--gold)">'+S.gus[name].expVal+'</b>을 얻어요. <b style="color:var(--gold)">틀리면 진입이 거부되어 잠깁니다!</b>',
     alienHTML:'<div class="alien-face">🧑‍🚀</div>',
     wrongMsg:'🔒 암호가 틀려 진입이 거부되었다!',
-    onCorrect:()=>{S.gus[name].claimed=true;S.lockedGu=null;const g=gainExp();closeScrim('qScrim');refreshMap();info('⭐','경험치 +'+g,name+'을(를) 되찾았다! 금색으로 빛납니다.');},
+    onCorrect:()=>{S.gus[name].claimed=true;S.lockedGu=null;const g=gainExp(S.gus[name].expVal);closeScrim('qScrim');refreshMap();info('⭐','경험치 +'+g,name+'을(를) 되찾았다! 금색으로 빛납니다.');},
     onWrong:()=>{S.lockedGu=name;setTimeout(()=>{closeScrim('qScrim');refreshMap();toast('🔒 '+name+' 진입 거부! 다른 구를 다녀온 뒤 다시 오세요.');},700);}
   });
 }
@@ -473,7 +481,7 @@ function openGu(name){
   const grid=document.getElementById('dongGrid');grid.innerHTML='';
   gu.dongs.forEach(d=>{
     const el=document.createElement('div');el.className='dong';let ic='❓',ds='미탐사 구역';
-    if(d.done){el.classList.add('done');if(d.kind==='boss'){ic='🏳️';ds='외계인 퇴치 완료';}else{ic='📦';ds='보급 완료';}}
+    if(d.done){el.classList.add('done');if(d.kind==='enemy'){ic='🏳️';ds=d.tier+' 외계인 퇴치 완료';}else{ic='📦';ds='보급 완료';}}
     el.innerHTML='<div class="ic">'+ic+'</div><div><div class="nm">'+d.name+'</div><div class="ds">'+ds+'</div></div>';
     if(!d.done)el.onclick=()=>enterDong(name,d);
     grid.appendChild(el);
@@ -482,17 +490,23 @@ function openGu(name){
 }
 function enterDong(name,d){
   S.lockedGu=null;closeScrim('dongScrim');
-  if(d.kind==='boss'){
-    if(d.hp<d.maxhp){ toast('전투 재개! 남은 외계인 체력 '+d.hp+'/'+d.maxhp); bossRound(name,d); }
-    else{ info('⚠️','대장 외계인 등장!',name+' '+d.name+'에 숨어 있던 대장 외계인이 모습을 드러냈다! 수학으로 맞서 싸워라. (한 문제라도 틀리면 후퇴하지만, 깎아둔 체력은 유지돼요)',()=>bossRound(name,d),'전투 시작 ⚔️'); }
+  if(d.kind==='enemy'){
+    if(d.hp<d.maxhp){ toast('전투 재개! 남은 체력 '+d.hp+'/'+d.maxhp); bossRound(name,d); }
+    else{
+      const icon=d.tier==='대장'?'⚠️':d.tier==='괴물'?'👹':'👾';
+      const body=(d.tier==='외계인')
+        ? (name+' '+d.name+'에서 외계인이 튀어나왔다! 한 문제로 처치할 수 있어요.')
+        : (name+' '+d.name+'에 숨어 있던 '+d.tier+' 외계인이 모습을 드러냈다! 한 문제라도 틀리면 후퇴하지만, 깎아둔 체력은 유지돼요.');
+      info(icon, d.tier+' 외계인 등장!', body, ()=>bossRound(name,d), '전투 시작 ⚔️');
+    }
   }else{itemDong(name,d);}
 }
 /* ----- 보스 전투 ----- */
 function bossSub(name,d){return name+' '+d.name+' · 명중 시 <b style="color:var(--alien)">'+RANKS[S.rankIdx].atk+'</b>씩 감소 (남은 체력 '+d.hp+'/'+d.maxhp+')';}
-function bossHTML(d){let pips='';for(let i=0;i<d.maxhp;i++)pips+='<div class="pip '+(i>=d.hp?'gone':'')+'"></div>';return '<div class="alien-face">👾</div><div class="hpwrap"><div class="hplabel">외계인 체력 '+d.hp+' / '+d.maxhp+'</div><div class="pips">'+pips+'</div></div>';}
+function bossHTML(d){const face=d.tier==='괴물'?'👹':(d.tier==='외계인'?'👽':'👾');let pips='';for(let i=0;i<d.maxhp;i++)pips+='<div class="pip '+(i>=d.hp?'gone':'')+'"></div>';return '<div class="alien-face">'+face+'</div><div class="hpwrap"><div class="hplabel">'+d.tier+' 외계인 체력 '+d.hp+' / '+d.maxhp+'</div><div class="pips">'+pips+'</div></div>';}
 function bossRound(name,d){
   const gu=S.gus[name];
-  const opt={title:'⚔️ 대장 외계인 전투!',sub:bossSub(name,d),alienHTML:bossHTML(d),allowKill:true};
+  const opt={title:'⚔️ '+d.tier+' 외계인 전투!',sub:bossSub(name,d),alienHTML:bossHTML(d),allowKill:(d.tier==='외계인')};
   function damage(dmg){
     d.hp=Math.max(0,d.hp-dmg);
     if(d.hp<=0){defeat();}
@@ -501,7 +515,7 @@ function bossRound(name,d){
   function defeat(){
     d.done=true;closeScrim('qScrim');sWin();refreshMap();
     const res=checkGuLiberated(name);
-    const msg=d.name+'의 대장 외계인을 처치했다!'+(res?(' '+name+'이(가) 완전히 해방되었습니다! 🎉'):'');
+    const msg=d.name+'의 '+d.tier+' 외계인을 처치했다!'+(res?(' '+name+'이(가) 완전히 해방되었습니다! 🎉'):'');
     if(res==='win'){info('🏳️','외계인 퇴치!',msg,()=>winGame());return;}
     info('🏳️','외계인 퇴치!',msg,()=>{if(!gu.liberated)openGu(name);});
   }
