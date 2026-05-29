@@ -186,6 +186,7 @@
   <div class="toolbar">
     <span class="pill df" id="diffPill">난이도</span>
     <span class="pill kill" id="killPill">💥 퇴치권 0</span>
+    <span class="pill hpkit" id="hpkitPill" onclick="useHpkit()" style="cursor:pointer;color:var(--danger);border-color:var(--danger-d);background:rgba(255,107,128,.08)">💊 체력회복제 0</span>
     <button class="btn ghost sm" onclick="resetGame()">↺ 처음부터</button>
   </div>
 
@@ -296,7 +297,7 @@ function freshState(diff){
   // 안전구역 9곳 경험치: 3점x3곳, 2점x5곳, 1점x1곳 = 합계 20
   const expVals=shuffle([3,3,3,2,2,2,2,2,1]);
   safeNames.forEach((g,i)=>{gus[g]={type:'safe',claimed:false,expVal:expVals[i]};});
-  return {hp:50,maxHp:50,exp:0,rankIdx:0,libAlien:0,kill:0,gus,lockedGu:null,curGu:null,diff,target:DIFF[diff].target};
+  return {hp:50,maxHp:50,exp:0,rankIdx:0,libAlien:0,kill:0,hpkit:0,gus,lockedGu:null,curGu:null,diff,target:DIFF[diff].target};
 }
 
 /* ============================================================ 사운드 */
@@ -407,6 +408,7 @@ function refreshHUD(){
   document.getElementById('rankAtk').textContent='💥 공격력 '+RANKS[S.rankIdx].atk;
   document.getElementById('coreCount').textContent=S.libAlien+' / '+S.target;
   document.getElementById('killPill').textContent='💥 퇴치권 '+S.kill;
+  document.getElementById('hpkitPill').textContent='💊 체력회복제 '+S.hpkit;
   document.getElementById('diffPill').textContent='난이도 '+DIFF[S.diff].label;
 }
 
@@ -533,8 +535,16 @@ function itemDong(name,d){
   const res=checkGuLiberated(name);
   const lib=res?(' '+name+'이(가) 완전히 해방되었습니다! 🎉'):'';
   const after=()=>{if(res==='win'){winGame();}else if(!gu.liberated){openGu(name);}};
-  if(d.item==='hp'){S.hp=Math.min(S.maxHp,S.hp+20);refreshHUD();refreshMap();info('💊','체력 회복제!','보급 상자에서 회복제를 얻었다. 체력 +20!'+lib,after);}
-  else{S.kill++;refreshHUD();refreshMap();info('💥','퇴치권 획득!','대장 외계인을 즉시 처치할 수 있는 퇴치권을 얻었다! 전투 중 "퇴치권" 버튼으로 사용하세요.'+lib,after);}
+  if(d.item==='hp'){S.hpkit++;refreshHUD();refreshMap();info('💊','체력 회복제 획득!','보급 상자에서 체력 회복제를 얻었다! 화면 위 "💊 체력회복제" 아이콘을 눌러 원할 때 체력을 +20 회복할 수 있어요.'+lib,after);}
+  else{S.kill++;refreshHUD();refreshMap();info('💥','퇴치권 획득!','일반 외계인을 즉시 처치할 수 있는 퇴치권을 얻었다! 전투 중 "퇴치권" 버튼으로 사용하세요.'+lib,after);}
+}
+/* ----- 회복제 사용(홈 아이콘 클릭) ----- */
+function useHpkit(){
+  if(!S||S.hpkit<=0){toast('보유한 체력 회복제가 없어요.');return;}
+  if(S.hp>=S.maxHp){toast('이미 체력이 가득 찼어요!');return;}
+  if(confirm('체력 회복제를 사용하시겠습니까? (체력 +20)')){
+    S.hpkit--;S.hp=Math.min(S.maxHp,S.hp+20);refreshHUD();toast('💊 체력 회복! 현재 체력 '+S.hp+'/'+S.maxHp);
+  }
 }
 function checkGuLiberated(name){
   const gu=S.gus[name];
