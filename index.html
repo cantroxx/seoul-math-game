@@ -3,107 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>서울 탈환 작전 — 외계인 수학 침공 (실제 지도판)</title>
+<title>서울 탈환 작전 — 외계인 수학 침공</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#060a1c; --bg2:#0c1330; --panel:#111a3d; --panel2:#0d1530;
-    --ink:#eaf0ff; --dim:#8ea0d6;
+    --bg:#060a1c; --panel:#111a3d; --panel2:#0d1530;
+    --ink:#eef2ff; --dim:#9aabdc;
     --alien:#5dffb0; --alien-d:#1f8f63;
     --gold:#ffce4a; --gold-d:#a87a13;
     --free:#5ad7ff; --free-d:#1d6e93;
-    --danger:#ff5d73; --danger-d:#b02035;
+    --danger:#ff6b80; --danger-d:#b02035;
     --line:rgba(120,150,230,.18);
-    --display:'Black Han Sans',sans-serif;
-    --body:'Jua',sans-serif;
+    --hero:'Black Han Sans',sans-serif;
+    --display:'Jua',sans-serif;
+    --body:'Noto Sans KR',sans-serif;
     --mono:'Share Tech Mono',monospace;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;height:100%}
-  body{
-    font-family:var(--body); color:var(--ink); background:var(--bg);
+  body{font-family:var(--body);font-weight:400;color:var(--ink);background:var(--bg);
     background-image:
       radial-gradient(1200px 700px at 80% -10%, rgba(93,255,176,.10), transparent 60%),
       radial-gradient(900px 600px at 10% 110%, rgba(90,215,255,.10), transparent 60%),
-      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.7), transparent),
-      radial-gradient(2px 2px at 60% 70%, rgba(255,255,255,.5), transparent),
-      radial-gradient(1.5px 1.5px at 85% 20%, rgba(255,255,255,.6), transparent),
-      radial-gradient(1.5px 1.5px at 35% 85%, rgba(255,255,255,.45), transparent),
-      radial-gradient(1.5px 1.5px at 75% 50%, rgba(255,255,255,.4), transparent);
-    overflow-x:hidden;
-  }
-  .wrap{max-width:1120px;margin:0 auto;padding:14px 14px 60px}
-  h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.5px}
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(255,255,255,.45), transparent),
+      radial-gradient(1.5px 1.5px at 85% 20%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1.5px 1.5px at 35% 85%, rgba(255,255,255,.4), transparent);
+    overflow-x:hidden}
+  .wrap{max-width:1180px;margin:0 auto;padding:14px 14px 60px}
+  h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.2px}
   .mono{font-family:var(--mono)}
 
-  /* ---------- HUD ---------- */
-  .hud{position:sticky;top:0;z-index:30;margin:6px 0 14px;
+  .hud{position:sticky;top:0;z-index:30;margin:6px 0 12px;
     background:linear-gradient(180deg, rgba(13,21,52,.96), rgba(13,21,52,.82));
-    border:1px solid var(--line);border-radius:16px;padding:12px 14px;
-    backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(0,0,0,.45);
-    display:grid;grid-template-columns:1.4fr 1.4fr 1fr 1fr;gap:14px;align-items:center;}
-  .hud .lab{font-size:11px;color:var(--dim);letter-spacing:1px;margin-bottom:5px;text-transform:uppercase}
+    border:1px solid var(--line);border-radius:16px;padding:12px 14px;backdrop-filter:blur(6px);
+    box-shadow:0 8px 30px rgba(0,0,0,.45);display:grid;grid-template-columns:1.4fr 1.4fr 1.1fr 1fr;gap:14px;align-items:center}
+  .hud .lab{font-size:11px;color:var(--dim);letter-spacing:.5px;margin-bottom:5px}
   .bar{height:16px;border-radius:10px;background:#0a1130;border:1px solid var(--line);overflow:hidden;position:relative}
   .bar > i{display:block;height:100%;transition:width .35s cubic-bezier(.2,.8,.2,1)}
   .bar.hp i{background:linear-gradient(90deg,var(--danger-d),var(--danger))}
   .bar.xp i{background:linear-gradient(90deg,var(--gold-d),var(--gold))}
   .bar .val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:#fff;text-shadow:0 1px 2px #000}
-  .rank{font-family:var(--display);font-size:clamp(15px,2.4vw,21px);color:var(--alien);line-height:1.1}
-  .rank small{display:block;font-family:var(--body);font-size:11px;color:var(--dim);letter-spacing:1px}
-  .cores{font-family:var(--display);font-size:clamp(15px,2.4vw,21px);color:var(--free);line-height:1.1}
-  .cores small{display:block;font-family:var(--body);font-size:11px;color:var(--dim);letter-spacing:1px}
+  .rank{font-family:var(--display);font-size:clamp(14px,2.2vw,20px);color:var(--alien);line-height:1.15}
+  .rank small{display:block;font-family:var(--body);font-size:11px;color:var(--gold);margin-top:2px}
+  .cores{font-family:var(--display);font-size:clamp(14px,2.2vw,20px);color:var(--free);line-height:1.15}
+  .cores small{display:block;font-family:var(--body);font-size:11px;color:var(--dim);margin-top:2px}
   .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
   .pill{font-family:var(--mono);font-size:12px;color:var(--gold);border:1px solid var(--gold-d);background:rgba(255,206,74,.08);padding:5px 10px;border-radius:999px}
-  .btn{font-family:var(--body);cursor:pointer;border:1px solid var(--line);background:#162254;color:var(--ink);padding:8px 14px;border-radius:10px;font-size:14px;transition:.15s}
+  .pill.kill{color:var(--alien);border-color:var(--alien-d);background:rgba(93,255,176,.08)}
+  .pill.df{color:var(--free);border-color:var(--free-d);background:rgba(90,215,255,.08)}
+  .btn{font-family:var(--display);cursor:pointer;border:1px solid var(--line);background:#162254;color:var(--ink);padding:8px 14px;border-radius:10px;font-size:14px;transition:.15s}
   .btn:hover{transform:translateY(-1px);background:#1c2c6b}
   .btn.ghost{background:transparent}
-  .btn.go{background:linear-gradient(90deg,var(--alien-d),var(--alien));color:#03210f;border:none;font-weight:bold}
+  .btn.go{background:linear-gradient(90deg,var(--alien-d),var(--alien));color:#03210f;border:none}
+  .btn.sm{padding:5px 11px;font-size:14px}
   .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
-  /* ---------- MAP ---------- */
-  .stage{position:relative;border:1px solid var(--line);border-radius:18px;padding:10px;
-    background:linear-gradient(180deg,#070d24,#0a1130);box-shadow:inset 0 0 80px rgba(0,0,0,.6)}
-  .maptitle{font-family:var(--display);font-size:13px;color:var(--dim);letter-spacing:2px;margin:2px 6px 8px;text-transform:uppercase;display:flex;justify-content:space-between}
-  .maphost{position:relative;width:100%;aspect-ratio:1080/620;border-radius:12px;overflow:hidden;
-    background-image:linear-gradient(rgba(120,150,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,150,230,.05) 1px,transparent 1px);
-    background-size:36px 36px}
+  .stage{position:relative;border:1px solid var(--line);border-radius:18px;padding:10px;background:linear-gradient(180deg,#070d24,#0a1130);box-shadow:inset 0 0 80px rgba(0,0,0,.6)}
+  .maptitle{font-family:var(--display);font-size:13px;color:var(--dim);letter-spacing:1px;margin:2px 6px 8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .zoomctl{display:flex;gap:6px;align-items:center}
+  .maphost{position:relative;width:100%;aspect-ratio:1080/640;border-radius:12px;overflow:hidden;cursor:grab;
+    background-image:linear-gradient(rgba(120,150,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,150,230,.05) 1px,transparent 1px);background-size:36px 36px}
+  .maphost.grabbing{cursor:grabbing}
   .maphost svg{width:100%;height:100%;display:block}
   .mapnote{font-family:var(--mono);font-size:12px;color:var(--dim);text-align:center;padding:8px}
 
-  /* 실제 지도(SVG path) */
-  path.geo{stroke:#0a1130;stroke-width:1;transition:fill .25s, stroke .2s, filter .25s;vector-effect:non-scaling-stroke}
-  path.geo.sealed{fill:url(#hatch);stroke:#241b2e}
-  path.geo.active{fill:#22101a;stroke:#6a2840;cursor:pointer}
-  path.geo.active:hover{fill:#3d1322;stroke:var(--danger);filter:drop-shadow(0 0 6px rgba(255,93,115,.55))}
-  path.geo.active.haspartial{fill:#2c2410;stroke:var(--gold-d)}
-  path.geo.active.haspartial:hover{fill:#3a2f12;stroke:var(--gold)}
-  path.geo.freed{fill:#103a52;stroke:var(--free);filter:drop-shadow(0 0 7px rgba(90,215,255,.6))}
-  text.geolab{font-family:var(--display);fill:#dfe8ff;text-anchor:middle;dominant-baseline:middle;
-    pointer-events:none;paint-order:stroke;stroke:#060a1c;stroke-width:3.2px;stroke-linejoin:round}
-  text.geolab.dim{fill:#4a3f55;stroke-width:2.5px}
-  text.geolab.free{fill:#dffaff}
+  path.geo{stroke:#0a1130;stroke-width:1.1;transition:fill .25s,stroke .2s,filter .25s;vector-effect:non-scaling-stroke}
+  path.geo.alien{fill:#3a121f;stroke:#7a2c44;cursor:pointer}
+  path.geo.alien:hover{fill:#56182c;stroke:var(--danger);filter:drop-shadow(0 0 6px rgba(255,107,128,.5))}
+  path.geo.alien.part{fill:#5a2030}
+  path.geo.safe{fill:#0e3850;stroke:var(--free);cursor:pointer}
+  path.geo.safe:hover{fill:#155677;filter:drop-shadow(0 0 6px rgba(90,215,255,.5))}
+  path.geo.done{fill:#7a5a12;stroke:var(--gold);filter:drop-shadow(0 0 6px rgba(255,206,74,.5))}
+  text.geolab{font-family:var(--body);font-weight:700;fill:#f2f6ff;text-anchor:middle;dominant-baseline:middle;
+    pointer-events:none;paint-order:stroke;stroke:#05081a;stroke-width:2.4px;stroke-linejoin:round}
+  text.geolab.done{fill:#fff3d6}
 
-  /* 스타일 지도(대체용) */
-  .gu{position:absolute;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    font-family:var(--display);font-size:clamp(9px,1.35vw,15px);text-align:center;line-height:1;
-    border:1.5px solid #2a1730;background:#0b0a12;color:#5b4a55;cursor:default;transition:.18s;overflow:hidden}
-  .gu .sub{font-family:var(--mono);font-size:9px;margin-top:3px;letter-spacing:.5px}
-  .gu.sealed{background:repeating-linear-gradient(45deg,#0a0913,#0a0913 6px,#100c18 6px,#100c18 12px);color:#3a3344;border-color:#241b2e}
-  .gu.active{background:radial-gradient(circle at 50% 0%,#2a0f1c,#120a16);border-color:#5a2236;color:#ff9fb0;cursor:pointer}
-  .gu.active:hover{transform:translateY(-2px) scale(1.02);border-color:var(--danger)}
-  .gu.active.haspartial{box-shadow:0 0 0 1px rgba(255,206,74,.35), inset 0 0 18px rgba(255,206,74,.18)}
-  .gu.freed{background:radial-gradient(circle at 50% 0%,#0d3850,#0a2233);border-color:var(--free);color:#cdf3ff;box-shadow:0 0 24px rgba(90,215,255,.5)}
-
-  /* ---------- MODALS ---------- */
   .scrim{position:fixed;inset:0;z-index:50;background:rgba(3,6,18,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
   .scrim.on{display:flex;animation:fade .2s}
   @keyframes fade{from{opacity:0}to{opacity:1}}
-  .modal{width:min(560px,96vw);max-height:92vh;overflow:auto;border-radius:18px;border:1px solid var(--line);
-    background:linear-gradient(180deg,var(--panel),var(--panel2));box-shadow:0 30px 80px rgba(0,0,0,.6);padding:22px}
-  .modal h2{margin:.1em 0 .3em;font-size:clamp(20px,4vw,28px)}
-  .modal .meta{color:var(--dim);font-size:13px;margin-bottom:14px}
+  .modal{width:min(560px,96vw);max-height:92vh;overflow:auto;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));box-shadow:0 30px 80px rgba(0,0,0,.6);padding:22px}
+  .modal h2{margin:.1em 0 .3em;font-size:clamp(20px,4vw,27px)}
+  .modal .meta{color:var(--dim);font-size:13.5px;margin-bottom:14px;line-height:1.6}
   .dong-grid{display:grid;grid-template-columns:1fr;gap:10px}
   .dong{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid var(--line);background:#0e1740;cursor:pointer;transition:.15s}
   .dong:hover{transform:translateX(3px);border-color:var(--alien)}
@@ -112,18 +95,18 @@
   .dong .ds{font-size:12px;color:var(--dim);font-family:var(--mono)}
   .dong.done{opacity:.85;background:linear-gradient(90deg,rgba(255,206,74,.12),#0e1740);border-color:var(--gold-d);cursor:default}
   .dong.done:hover{transform:none}
-  .dong.boss{background:linear-gradient(90deg,rgba(93,255,176,.10),#0e1740);border-color:var(--alien-d)}
-  .dong.bossdone{background:linear-gradient(90deg,rgba(90,215,255,.14),#0e1740);border-color:var(--free-d)}
 
-  .alienbox{text-align:center;margin:6px 0 16px}
+  .alienbox{text-align:center;margin:6px 0 14px}
   .alien-face{font-size:64px;filter:drop-shadow(0 0 18px rgba(93,255,176,.6));animation:bob 2.2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
-  .pips{display:flex;gap:8px;justify-content:center;margin-top:8px}
-  .pip{width:26px;height:26px;border-radius:6px;border:2px solid var(--alien-d);background:var(--alien);box-shadow:0 0 12px rgba(93,255,176,.6);transition:.25s}
+  .hpwrap{margin-top:8px}
+  .hplabel{font-family:var(--mono);font-size:12px;color:var(--danger);margin-bottom:5px}
+  .pips{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;max-width:340px;margin:0 auto}
+  .pip{width:22px;height:22px;border-radius:5px;border:2px solid var(--alien-d);background:var(--alien);box-shadow:0 0 8px rgba(93,255,176,.5);transition:.25s}
   .pip.gone{background:#142447;border-color:#2a3a66;box-shadow:none;transform:scale(.8)}
 
   .qbox{background:#0a1130;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;margin:10px 0}
-  .qkind{font-family:var(--mono);font-size:11px;color:var(--alien);letter-spacing:2px;text-transform:uppercase}
+  .qkind{font-family:var(--mono);font-size:11px;color:var(--alien);letter-spacing:1.5px}
   .qtext{font-family:var(--mono);font-size:clamp(26px,7vw,40px);margin:8px 0 4px;color:#fff}
   .qhint{font-size:12px;color:var(--dim)}
   .fields{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
@@ -133,23 +116,27 @@
   .field input:focus{border-color:var(--alien);box-shadow:0 0 0 3px rgba(93,255,176,.18)}
   .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
   .feedback{min-height:24px;text-align:center;font-family:var(--display);font-size:18px;margin-top:10px}
-  .feedback.good{color:var(--alien)}
-  .feedback.bad{color:var(--danger)}
+  .feedback.good{color:var(--alien)}.feedback.bad{color:var(--danger)}
   .center{text-align:center}
-  .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%) translateY(-20px);z-index:80;background:#0e1740;border:1px solid var(--alien);color:var(--alien);font-family:var(--display);padding:12px 22px;border-radius:12px;opacity:0;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:16px;pointer-events:none}
+  .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%) translateY(-20px);z-index:80;background:#0e1740;border:1px solid var(--alien);color:var(--alien);font-family:var(--display);padding:12px 22px;border-radius:12px;opacity:0;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:16px;pointer-events:none;max-width:90vw;text-align:center}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* ---------- START / WIN ---------- */
-  .screen{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(800px 500px at 50% 20%,rgba(93,255,176,.14),transparent 60%),var(--bg)}
-  .screen .card{max-width:620px;text-align:center}
+  .screen{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(800px 500px at 50% 20%,rgba(93,255,176,.14),transparent 60%),var(--bg);overflow:auto}
+  .screen .card{max-width:640px;text-align:center;margin:auto}
   .screen.hidden{display:none}
-  .bigtitle{font-family:var(--display);font-size:clamp(34px,9vw,68px);line-height:.95;background:linear-gradient(90deg,var(--alien),var(--free));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(93,255,176,.25);margin:0}
-  .sub2{color:var(--dim);font-size:15px;margin:14px auto 22px;max-width:520px;line-height:1.7}
-  .rules{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 auto 22px;max-width:520px;font-size:13.5px;line-height:1.8;color:#c7d3ff}
+  .bigtitle{font-family:var(--hero);font-size:clamp(34px,9vw,66px);line-height:.95;background:linear-gradient(90deg,var(--alien),var(--free));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(93,255,176,.25);margin:0}
+  .sub2{color:var(--dim);font-size:15px;margin:14px auto 18px;max-width:540px;line-height:1.7}
+  .rules{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 auto 18px;max-width:560px;font-size:13.5px;line-height:1.85;color:#cdd8ff}
   .rules b{color:var(--alien)}
-  .ufo{font-size:60px;display:inline-block;animation:fly 4s ease-in-out infinite}
+  .ufo{font-size:58px;display:inline-block;animation:fly 4s ease-in-out infinite}
   @keyframes fly{0%,100%{transform:translateX(-12px) rotate(-4deg)}50%{transform:translateX(12px) rotate(4deg)}}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin:12px 0 2px;font-size:12px;color:var(--dim)}
+  .difftitle{font-family:var(--display);color:var(--ink);font-size:18px;margin:6px 0 12px}
+  .diffrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .diffbtn{cursor:pointer;border:1px solid var(--line);background:#101a40;border-radius:14px;padding:16px 18px;width:165px;transition:.15s;text-align:center}
+  .diffbtn:hover{transform:translateY(-3px);border-color:var(--alien);background:#16224f}
+  .diffbtn .dn{font-family:var(--display);font-size:20px;color:var(--alien)}
+  .diffbtn .dd{font-size:12.5px;color:var(--dim);margin-top:6px;line-height:1.5}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:12px 0 2px;font-size:12px;color:var(--dim)}
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
 </style>
@@ -160,16 +147,22 @@
   <div class="card">
     <div class="ufo">🛸</div>
     <h1 class="bigtitle">서울 탈환 작전</h1>
-    <p class="sub2">외계인이 서울을 점령했다! 검게 물든 도시를 되찾아라.<br>수학으로 무장하고, 숨어 있는 <b style="color:var(--alien)">6개의 핵심 거점</b>을 찾아 대장 외계인을 처치하면 서울이 해방된다.</p>
+    <p class="sub2">외계인이 서울을 점령했다! 붉게 물든 도시를 되찾아라.<br>수학으로 무장하고 외계인 거점을 해방하면 작전 성공이다.</p>
     <div class="rules">
-      🛰️ <b>거점 찾기</b> — 활성화된 16개 구 중 6곳에 대장 외계인이 숨어 있어요. 구를 눌러 직접 찾아내세요.<br>
-      👾 <b>대장 외계인</b> — 체력이 2~3칸! 칸 수만큼 데미지를 줘야 처치돼요.<br>
-      🎖️ <b>계급 = 공격력</b> — 거점이 아닌 동을 탐사하면 경험치(1~3)를 얻어요. 10마다 계급↑, 한 번에 주는 데미지가 커집니다.<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;연구자(💥1) → 정복자(💥2) → 처단자(💥3)<br>
-      ❤️ <b>체력 50</b> — 오답이면 -5. 0이 되면 긴급구조대가 와요(5문제 풀면 50 회복).<br>
-      📦 <b>보급 상자</b> — 체력 회복제·문제 패스권을 얻을 수 있어요.
+      🔵 <b style="color:var(--free)">파란 안전구역(9곳)</b> — 아직 시민이 버티는 곳. 들어가서 문제 1개를 풀면 경험치(1~3)를 얻어요. 성공하면 금색이 되고 재입장 불가. 틀리면 잠겨서, 다른 구를 다녀온 뒤 다시 와야 해요.<br>
+      🔴 <b style="color:var(--danger)">붉은 외계인 구역(16곳)</b> — 동 3개에 미션(대장 외계인 또는 보급 상자)이 숨어 있어요. 대장 외계인의 정체는 들어가야 드러납니다!<br>
+      🎖️ <b>계급 = 공격력</b> — 경험치 10마다 승급. 연구자(💥1)→정복자(💥2)→처단자(💥3). 계급이 높을수록 대장 외계인을 적은 문제로 처치!<br>
+      👾 <b>대장 외계인</b> — 체력 6 또는 9. 명중 1번에 공격력만큼 감소해요.<br>
+      ❤️ <b>체력 50</b> — 오답이면 -5. 0이 되면 긴급구조대가 문제 5개를 내고 체력을 20 채워줘요.<br>
+      📦 <b>보급 상자</b> — 회복제(체력+20) / 퇴치권(대장 외계인 즉시 처치)<br>
+      🏁 한 구역의 미션을 모두 끝내면 붉은 구가 금색으로 해방됩니다.
     </div>
-    <button class="btn go" style="font-size:18px;padding:12px 28px" onclick="startGame()">작전 시작 ▶</button>
+    <div class="difftitle">난이도를 선택하세요</div>
+    <div class="diffrow">
+      <div class="diffbtn" onclick="startGame('easy')"><div class="dn">쉬움</div><div class="dd">외계인 구역 16곳 중<br><b>6곳</b> 해방하면 클리어</div></div>
+      <div class="diffbtn" onclick="startGame('normal')"><div class="dn">보통</div><div class="dd">외계인 구역 16곳 중<br><b>11곳</b> 해방하면 클리어</div></div>
+      <div class="diffbtn" onclick="startGame('hard')"><div class="dn">어려움</div><div class="dd">외계인 구역<br><b>16곳 전부</b> 해방하면 클리어</div></div>
+    </div>
   </div>
 </div>
 
@@ -186,25 +179,32 @@
   <div class="hud">
     <div><div class="lab">❤️ 체력</div><div class="bar hp"><i id="hpFill" style="width:100%"></i><div class="val" id="hpVal">50 / 50</div></div></div>
     <div><div class="lab">🎖️ 경험치</div><div class="bar xp"><i id="xpFill" style="width:0%"></i><div class="val" id="xpVal">0 / 10</div></div></div>
-    <div><div class="rank" id="rankName">외계인 연구자</div><small class="rank"><span id="rankAtk" style="color:var(--gold)">💥 공격력 1</span></small></div>
+    <div><div class="rank" id="rankName">외계인 연구자</div><small class="rank" id="rankAtk">💥 공격력 1</small></div>
     <div><div class="cores" id="coreCount">0 / 6</div><small class="cores">거점 해방</small></div>
   </div>
 
   <div class="toolbar">
-    <span class="pill" id="passPill">🎫 패스권 0</span>
-    <span class="pill" id="hpkitPill" style="color:var(--alien);border-color:var(--alien-d);background:rgba(93,255,176,.08)">💊 회복제 0</span>
-    <button class="btn ghost" onclick="resetGame()">↺ 처음부터</button>
+    <span class="pill df" id="diffPill">난이도</span>
+    <span class="pill kill" id="killPill">💥 퇴치권 0</span>
+    <button class="btn ghost sm" onclick="resetGame()">↺ 처음부터</button>
   </div>
 
   <div class="stage">
-    <div class="maptitle"><span>▮ SEOUL — 외계 점령 지도</span><span id="mapModeTag" style="color:var(--dim)"></span></div>
+    <div class="maptitle">
+      <span>▮ SEOUL — 외계 점령 지도 <span id="mapModeTag" style="color:var(--dim)"></span></span>
+      <span class="zoomctl" id="zoomCtl" style="display:none">
+        <span style="color:var(--dim)">휠/드래그로 확대·이동</span>
+        <button class="btn sm" onclick="zoomBtn(0.7)">＋</button>
+        <button class="btn sm" onclick="zoomBtn(1.4)">－</button>
+        <button class="btn sm" onclick="zoomReset()">⟲</button>
+      </span>
+    </div>
     <div class="maphost" id="mapHost"></div>
     <div class="mapnote" id="mapNote">실제 서울 지도를 불러오는 중…</div>
     <div class="legend">
-      <span><i class="sw" style="background:#22101a;border:1px solid #6a2840"></i>점령지(미탐사)</span>
-      <span><i class="sw" style="background:var(--gold)"></i>탐사 완료</span>
-      <span><i class="sw" style="background:var(--free)"></i>거점 해방</span>
-      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#0a0913,#0a0913 3px,#100c18 3px,#100c18 6px)"></i>봉인 구역</span>
+      <span><i class="sw" style="background:#3a121f;border:1px solid #7a2c44"></i>외계인 구역</span>
+      <span><i class="sw" style="background:#0e3850;border:1px solid var(--free)"></i>안전구역(경험치)</span>
+      <span><i class="sw" style="background:#7a5a12;border:1px solid var(--gold)"></i>해방 완료</span>
     </div>
   </div>
 </div>
@@ -212,7 +212,7 @@
 <div class="scrim" id="dongScrim">
   <div class="modal">
     <h2 id="dongTitle">○○구</h2>
-    <div class="meta" id="dongMeta">구역을 선택해 탐사하세요.</div>
+    <div class="meta" id="dongMeta"></div>
     <div class="dong-grid" id="dongGrid"></div>
     <div class="row"><button class="btn ghost" onclick="closeScrim('dongScrim')">← 지도로</button></div>
   </div>
@@ -239,232 +239,172 @@
     <div id="infoIcon" style="font-size:56px;margin-bottom:6px"></div>
     <h2 id="infoTitle"></h2>
     <div class="meta" id="infoBody" style="font-size:15px;color:var(--ink)"></div>
-    <div class="row"><button class="btn go" onclick="closeScrim('infoScrim')">확인</button></div>
+    <div class="row"><button class="btn go" id="infoBtn">확인</button></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   데이터
-   ============================================================ */
-// 한강 북쪽/남쪽 25개 구 (스타일 지도 대체용 좌표 포함)
+/* ============================================================ 데이터 */
 function cell(name,x,y){return {name,x,y};}
-const NORTH=[
-  cell('은평구',24,38), cell('서대문구',176,38), cell('종로구',328,38), cell('성북구',480,38), cell('강북구',632,38), cell('도봉구',784,38), cell('노원구',936,38),
-  cell('마포구',24,128), cell('용산구',176,128), cell('중구',328,128), cell('동대문구',480,128), cell('성동구',632,128), cell('광진구',784,128), cell('중랑구',936,128),
+const ALL_GU=[
+  cell('은평구',24,38),cell('서대문구',176,38),cell('종로구',328,38),cell('성북구',480,38),cell('강북구',632,38),cell('도봉구',784,38),cell('노원구',936,38),
+  cell('마포구',24,128),cell('용산구',176,128),cell('중구',328,128),cell('동대문구',480,128),cell('성동구',632,128),cell('광진구',784,128),cell('중랑구',936,128),
+  cell('강서구',24,300),cell('양천구',176,300),cell('구로구',328,300),cell('영등포구',480,300),cell('동작구',632,300),cell('서초구',784,300),cell('강남구',936,300),
+  cell('금천구',176,402),cell('관악구',328,402),cell('송파구',784,402),cell('강동구',936,402),
 ];
-const SOUTH=[
-  cell('강서구',24,300), cell('양천구',176,300), cell('구로구',328,300), cell('영등포구',480,300), cell('동작구',632,300), cell('서초구',784,300), cell('강남구',936,300),
-  cell('금천구',176,402), cell('관악구',328,402), cell('송파구',784,402), cell('강동구',936,402),
-];
-const ALL_GU=[...NORTH,...SOUTH];
-
 const DONGS={
-  '종로구':['청운효자동','사직동','혜화동'],
-  '중구':['명동','회현동','신당동'],
-  '용산구':['이태원동','한남동','효창동'],
-  '성동구':['성수동','금호동','행당동'],
-  '광진구':['자양동','화양동','능동'],
-  '동대문구':['회기동','이문동','전농동'],
-  '성북구':['정릉동','길음동','안암동'],
-  '마포구':['합정동','망원동','서교동'],
-  '양천구':['목동','신정동','신월동'],
-  '강서구':['화곡동','발산동','등촌동'],
-  '구로구':['구로동','신도림동','개봉동'],
-  '영등포구':['여의도동','당산동','문래동'],
-  '동작구':['노량진동','상도동','사당동'],
-  '관악구':['봉천동','신림동','남현동'],
-  '서초구':['서초동','반포동','방배동'],
-  '강남구':['역삼동','청담동','압구정동'],
+  '종로구':['청운효자동','사직동','혜화동'],'중구':['명동','회현동','신당동'],'용산구':['이태원동','한남동','효창동'],
+  '성동구':['성수동','금호동','행당동'],'광진구':['자양동','화양동','능동'],'동대문구':['회기동','이문동','전농동'],
+  '성북구':['정릉동','길음동','안암동'],'마포구':['합정동','망원동','서교동'],'양천구':['목동','신정동','신월동'],
+  '강서구':['화곡동','발산동','등촌동'],'구로구':['구로동','신도림동','개봉동'],'영등포구':['여의도동','당산동','문래동'],
+  '동작구':['노량진동','상도동','사당동'],'관악구':['봉천동','신림동','남현동'],'서초구':['서초동','반포동','방배동'],
+  '강남구':['역삼동','청담동','압구정동'],'은평구':['녹번동','응암동','불광동'],'서대문구':['신촌동','홍제동','연희동'],
+  '강북구':['미아동','수유동','번동'],'도봉구':['쌍문동','창동','방학동'],'노원구':['상계동','중계동','공릉동'],
+  '중랑구':['면목동','상봉동','묵동'],'금천구':['가산동','독산동','시흥동'],'송파구':['잠실동','방이동','가락동'],
+  '강동구':['천호동','성내동','길동'],
 };
-const ACTIVE=Object.keys(DONGS);
 const KNOWN=new Set(ALL_GU.map(g=>g.name));
 const RANKS=[{name:'외계인 연구자',atk:1},{name:'외계인 정복자',atk:2},{name:'외계인 처단자',atk:3}];
+const DIFF={easy:{label:'쉬움',target:6},normal:{label:'보통',target:11},hard:{label:'어려움',target:16}};
 
-/* ============================================================
-   상태
-   ============================================================ */
+/* ============================================================ 상태 */
 let S, mapMode='grid', geoPaths={}, geoLabels={};
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function rankOf(exp){return exp>=20?2:exp>=10?1:0;}
-function freshState(){
+function freshState(diff){
+  const names=shuffle(ALL_GU.map(g=>g.name));
+  const alienNames=names.slice(0,16), safeNames=names.slice(16);
   const gus={};
-  ACTIVE.forEach(g=>{gus[g]={core:false,freed:false,dongs:DONGS[g].map((nm,i)=>({id:g+'-'+i,name:nm,type:'exp',hp:0,revealed:false,done:false}))};});
-  const cores=shuffle([...ACTIVE]).slice(0,6);
-  cores.forEach(g=>{gus[g].core=true;const d=gus[g].dongs[Math.floor(Math.random()*3)];d.type='boss';d.hp=Math.random()<0.5?2:3;d.maxhp=d.hp;});
-  const pool=[];ACTIVE.forEach(g=>gus[g].dongs.forEach(d=>{if(d.type!=='boss')pool.push(d);}));
-  shuffle(pool).slice(0,6).forEach(d=>{d.type='item';d.item=Math.random()<0.5?'hp':'pass';});
-  return {hp:50,maxHp:50,exp:0,rankIdx:0,freed:0,pass:0,hpkit:0,gus,lockedDong:null,curGu:null,curDong:null};
+  alienNames.forEach(g=>{
+    // 동 3개: 최소 1개는 보스, 나머지는 보스 또는 아이템
+    const dongs=DONGS[g].map((nm,i)=>{
+      const isBoss=Math.random()<0.55;
+      if(isBoss){const hp=Math.random()<0.5?6:9;return{id:g+'-'+i,name:nm,kind:'boss',hp,maxhp:hp,done:false};}
+      return{id:g+'-'+i,name:nm,kind:'item',item:Math.random()<0.5?'hp':'kill',done:false};
+    });
+    if(!dongs.some(d=>d.kind==='boss')){const d=dongs[Math.floor(Math.random()*3)];const hp=Math.random()<0.5?6:9;d.kind='boss';d.hp=hp;d.maxhp=hp;delete d.item;}
+    gus[g]={type:'alien',liberated:false,dongs};
+  });
+  safeNames.forEach(g=>{gus[g]={type:'safe',claimed:false};});
+  return {hp:50,maxHp:50,exp:0,rankIdx:0,libAlien:0,kill:0,gus,lockedGu:null,curGu:null,diff,target:DIFF[diff].target};
 }
 
-/* ============================================================
-   사운드
-   ============================================================ */
-let AC;
-function beep(f,d,t){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=t||'square';o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.06,AC.currentTime);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.start();o.stop(AC.currentTime+d);}catch(e){}}
+/* ============================================================ 사운드 */
+let AC;function beep(f,d,t){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=t||'square';o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.06,AC.currentTime);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.start();o.stop(AC.currentTime+d);}catch(e){}}
 const sGood=()=>{beep(660,.08);setTimeout(()=>beep(990,.12),90);};
 const sBad=()=>beep(160,.22,'sawtooth');
 const sWin=()=>{[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.18),i*120));};
 
-/* ============================================================
-   실제 지도 로딩 + 투영
-   ============================================================ */
+/* ============================================================ 실제 지도 로딩 + 투영 */
 const GEO_URLS=[
   'https://cdn.jsdelivr.net/gh/southkorea/seoul-maps@master/kostat/2013/json/seoul_municipalities_geo_simple.json',
   'https://raw.githubusercontent.com/southkorea/seoul-maps/master/kostat/2013/json/seoul_municipalities_geo_simple.json',
   'https://cdn.jsdelivr.net/gh/southkorea/seoul-maps@master/juso/2015/json/seoul_municipalities_geo_simple.json'
 ];
-function fetchTimeout(url,ms){
-  return Promise.race([
-    fetch(url).then(r=>r.ok?r.json():Promise.reject(r.status)),
-    new Promise((_,rej)=>setTimeout(()=>rej('timeout'),ms))
-  ]);
-}
-async function loadSeoulGeo(){
-  for(const u of GEO_URLS){
-    try{
-      const geo=await fetchTimeout(u,8000);
-      if(geo&&geo.features&&geo.features.length>=20){
-        // 이름 매칭 확인
-        let matched=0; geo.features.forEach(f=>{ if(getGuName(f.properties)) matched++; });
-        if(matched>=20) return geo;
-      }
-    }catch(e){/* 다음 URL 시도 */}
-  }
-  return null;
-}
-function getGuName(props){
-  if(!props) return null;
-  for(const v of Object.values(props)){ if(typeof v==='string' && KNOWN.has(v)) return v; }
-  return null;
-}
+function fetchTimeout(url,ms){return Promise.race([fetch(url).then(r=>r.ok?r.json():Promise.reject(r.status)),new Promise((_,rej)=>setTimeout(()=>rej('timeout'),ms))]);}
+async function loadSeoulGeo(){for(const u of GEO_URLS){try{const geo=await fetchTimeout(u,8000);if(geo&&geo.features&&geo.features.length>=20){let m=0;geo.features.forEach(f=>{if(getGuName(f.properties))m++;});if(m>=20)return geo;}}catch(e){}}return null;}
+function getGuName(props){if(!props)return null;for(const v of Object.values(props)){if(typeof v==='string'&&KNOWN.has(v))return v;}return null;}
 function buildProjector(geo,W,H,pad){
   let minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9;
   const eat=c=>{const lon=c[0],lat=c[1];if(lon<minx)minx=lon;if(lon>maxx)maxx=lon;if(lat<miny)miny=lat;if(lat>maxy)maxy=lat;};
   const walk=g=>{if(typeof g[0][0]==='number')g.forEach(eat);else g.forEach(walk);};
   geo.features.forEach(f=>walk(f.geometry.coordinates));
-  const midLat=(miny+maxy)/2, kx=Math.cos(midLat*Math.PI/180);
-  const gw=(maxx-minx)*kx, gh=(maxy-miny), s=Math.min((W-2*pad)/gw,(H-2*pad)/gh);
-  const ox=(W-gw*s)/2, oy=(H-gh*s)/2;
-  return (lon,lat)=>[ox+(lon-minx)*kx*s, oy+(maxy-lat)*s];
+  const midLat=(miny+maxy)/2,kx=Math.cos(midLat*Math.PI/180);
+  const gw=(maxx-minx)*kx,gh=(maxy-miny),s=Math.min((W-2*pad)/gw,(H-2*pad)/gh);
+  const ox=(W-gw*s)/2,oy=(H-gh*s)/2;
+  return (lon,lat)=>[ox+(lon-minx)*kx*s,oy+(maxy-lat)*s];
 }
 function ringToPath(ring,proj){return ring.map((c,i)=>{const[x,y]=proj(c[0],c[1]);return (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);}).join(' ')+' Z';}
 function featPath(f,proj){const g=f.geometry;let d='';if(g.type==='Polygon')g.coordinates.forEach(r=>d+=ringToPath(r,proj));else if(g.type==='MultiPolygon')g.coordinates.forEach(p=>p.forEach(r=>d+=ringToPath(r,proj)));return d;}
-function biggestRing(f){
-  const g=f.geometry;
-  let rings = g.type==='Polygon' ? [g.coordinates[0]] : g.coordinates.map(p=>p[0]);
-  return rings.reduce((a,b)=>b.length>a.length?b:a, rings[0]);
-}
-function centroidOf(ring,proj){
-  let sx=0,sy=0;ring.forEach(c=>{const[x,y]=proj(c[0],c[1]);sx+=x;sy+=y;});return [sx/ring.length, sy/ring.length];
-}
+function biggestRing(f){const g=f.geometry;let rings=g.type==='Polygon'?[g.coordinates[0]]:g.coordinates.map(p=>p[0]);return rings.reduce((a,b)=>b.length>a.length?b:a,rings[0]);}
+function centroidOf(ring,proj){let sx=0,sy=0;ring.forEach(c=>{const[x,y]=proj(c[0],c[1]);sx+=x;sy+=y;});return [sx/ring.length,sy/ring.length];}
 
-/* ============================================================
-   지도 빌드 (실제 / 스타일)
-   ============================================================ */
+/* ============================================================ 지도 빌드 + 줌/팬 */
 const mapHost=document.getElementById('mapHost');
+const VW=1080,VH=640;let gSvg=null,gVB=null,gDragMoved=false;
 function buildRealMap(geo){
-  const W=1080,H=620;
-  const proj=buildProjector(geo,W,H,26);
+  const proj=buildProjector(geo,VW,VH,24);
   const NS='http://www.w3.org/2000/svg';
   const svg=document.createElementNS(NS,'svg');
-  svg.setAttribute('viewBox','0 0 '+W+' '+H);
-  svg.setAttribute('preserveAspectRatio','xMidYMid meet');
-  // 봉인 빗금 패턴
-  const defs=document.createElementNS(NS,'defs');
-  defs.innerHTML='<pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#0a0913"/><rect width="4" height="8" fill="#120d1a"/></pattern>';
-  svg.appendChild(defs);
+  svg.setAttribute('viewBox','0 0 '+VW+' '+VH);svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   geoPaths={};geoLabels={};
   geo.features.forEach(f=>{
-    const name=getGuName(f.properties); if(!name) return;
-    const p=document.createElementNS(NS,'path');
-    p.setAttribute('d',featPath(f,proj));
-    p.setAttribute('class','geo');
-    p.dataset.gu=name;
-    svg.appendChild(p);
-    geoPaths[name]=p;
+    const name=getGuName(f.properties);if(!name)return;
+    const p=document.createElementNS(NS,'path');p.setAttribute('d',featPath(f,proj));p.setAttribute('class','geo');p.dataset.gu=name;svg.appendChild(p);geoPaths[name]=p;
     const [cx,cy]=centroidOf(biggestRing(f),proj);
-    const t=document.createElementNS(NS,'text');
-    t.setAttribute('class','geolab');t.setAttribute('x',cx);t.setAttribute('y',cy);
-    t.setAttribute('font-size', name.length>=4?'12':'13');
-    t.textContent=name.replace('구','');
-    svg.appendChild(t);
-    geoLabels[name]=t;
+    const t=document.createElementNS(NS,'text');t.setAttribute('class','geolab');t.setAttribute('x',cx);t.setAttribute('y',cy);t.setAttribute('font-size',name.length>=4?'12.5':'14');t.textContent=name;svg.appendChild(t);geoLabels[name]=t;
   });
   mapHost.innerHTML='';mapHost.appendChild(svg);
+  gSvg=svg;gVB=[0,0,VW,VH];applyVB();attachPanZoom();
+  document.getElementById('zoomCtl').style.display='flex';
   mapMode='real';
+}
+function applyVB(){if(gSvg)gSvg.setAttribute('viewBox',gVB.join(' '));}
+function clampPan(){if(gVB[0]<0)gVB[0]=0;if(gVB[1]<0)gVB[1]=0;if(gVB[0]+gVB[2]>VW)gVB[0]=VW-gVB[2];if(gVB[1]+gVB[3]>VH)gVB[1]=VH-gVB[3];}
+function zoomAt(cx,cy,factor){
+  let nw=Math.min(VW,Math.max(VW/9,gVB[2]*factor));let nh=nw*(VH/VW);
+  const rx=(cx-gVB[0])/gVB[2],ry=(cy-gVB[1])/gVB[3];
+  gVB[0]=cx-rx*nw;gVB[1]=cy-ry*nh;gVB[2]=nw;gVB[3]=nh;clampPan();applyVB();
+}
+function svgPoint(clientX,clientY){const r=gSvg.getBoundingClientRect();return{x:gVB[0]+(clientX-r.left)/r.width*gVB[2],y:gVB[1]+(clientY-r.top)/r.height*gVB[3]};}
+function zoomBtn(f){if(!gSvg)return;zoomAt(gVB[0]+gVB[2]/2,gVB[1]+gVB[3]/2,f);}
+function zoomReset(){if(!gSvg)return;gVB=[0,0,VW,VH];applyVB();}
+function attachPanZoom(){
+  mapHost.onwheel=e=>{e.preventDefault();const p=svgPoint(e.clientX,e.clientY);zoomAt(p.x,p.y,e.deltaY<0?0.85:1.18);};
+  let dragging=false,sx=0,sy=0,vb0=0,vb1=0;
+  mapHost.onpointerdown=e=>{dragging=true;gDragMoved=false;sx=e.clientX;sy=e.clientY;vb0=gVB[0];vb1=gVB[1];mapHost.classList.add('grabbing');mapHost.setPointerCapture(e.pointerId);};
+  mapHost.onpointermove=e=>{if(!dragging)return;const r=gSvg.getBoundingClientRect();const dx=(e.clientX-sx)/r.width*gVB[2],dy=(e.clientY-sy)/r.height*gVB[3];if(Math.abs(e.clientX-sx)+Math.abs(e.clientY-sy)>5)gDragMoved=true;gVB[0]=vb0-dx;gVB[1]=vb1-dy;clampPan();applyVB();};
+  const up=e=>{dragging=false;mapHost.classList.remove('grabbing');setTimeout(()=>gDragMoved=false,30);};
+  mapHost.onpointerup=up;mapHost.onpointercancel=up;
 }
 function refreshReal(){
   ALL_GU.forEach(gu=>{
-    const p=geoPaths[gu.name], t=geoLabels[gu.name]; if(!p) return;
-    const st=S.gus[gu.name];
-    p.setAttribute('class','geo'); p.onclick=null; t.setAttribute('class','geolab');
-    if(!st){ p.classList.add('sealed'); t.classList.add('dim'); return; }
-    if(st.freed){ p.classList.add('freed'); t.classList.add('free'); t.textContent='⭐'+gu.name.replace('구',''); }
-    else{
-      p.classList.add('active');
-      const explored=st.dongs.filter(d=>d.done&&d.type!=='boss').length;
-      if(explored>0)p.classList.add('haspartial');
-      t.textContent=gu.name.replace('구','');
-      p.onclick=()=>openGu(gu.name);
+    const p=geoPaths[gu.name],t=geoLabels[gu.name];if(!p)return;const st=S.gus[gu.name];
+    p.setAttribute('class','geo');p.onclick=null;t.setAttribute('class','geolab');
+    if(st.type==='alien'){
+      if(st.liberated){p.classList.add('done');t.classList.add('done');}
+      else{p.classList.add('alien');if(st.dongs.some(d=>d.done))p.classList.add('part');p.onclick=()=>{if(!gDragMoved)clickGu(gu.name);};}
+    }else{
+      if(st.claimed){p.classList.add('done');t.classList.add('done');}
+      else{p.classList.add('safe');p.onclick=()=>{if(!gDragMoved)clickGu(gu.name);};}
     }
   });
 }
 function buildGridMap(){
   mapHost.innerHTML='';
-  const river=document.createElementNS('http://www.w3.org/2000/svg','svg');
-  // 간단 강 표시
-  mapHost.innerHTML='<svg viewBox="0 0 1080 620" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#123a52" stop-opacity="0"/><stop offset=".5" stop-color="#1c5e84" stop-opacity=".55"/><stop offset="1" stop-color="#123a52" stop-opacity="0"/></linearGradient></defs><path d="M -20 250 C 250 215,430 285,600 250 S 950 215,1100 255 L 1100 290 C 950 252,760 320,600 286 S 250 250,-20 288 Z" fill="url(#rg)"/></svg>';
-  ALL_GU.forEach(gu=>{
-    const el=document.createElement('div');el.className='gu';
-    el.style.left=(gu.x/1080*100)+'%';el.style.top=(gu.y/620*100)+'%';
-    el.style.width=(128/1080*100)+'%';el.style.height=(78/620*100)+'%';
-    el.dataset.gu=gu.name;mapHost.appendChild(el);
-  });
-  mapMode='grid';
+  ALL_GU.forEach(gu=>{const el=document.createElement('div');el.dataset.gu=gu.name;el.style.cssText='position:absolute;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:clamp(9px,1.4vw,15px);text-align:center;border:1.5px solid #444;cursor:pointer;left:'+(gu.x/VW*100)+'%;top:'+(gu.y/VH*100)+'%;width:'+(128/VW*100)+'%;height:'+(78/VH*100)+'%';mapHost.appendChild(el);});
+  document.getElementById('zoomCtl').style.display='none';mapMode='grid';
 }
 function refreshGrid(){
-  ALL_GU.forEach(gu=>{
-    const el=mapHost.querySelector('[data-gu="'+gu.name+'"]'); if(!el) return;
-    const st=S.gus[gu.name];
-    el.className='gu';el.onclick=null;el.innerHTML='';
-    if(!st){el.classList.add('sealed');el.innerHTML='🔒<div class="sub">'+gu.name+'</div>';return;}
-    if(st.freed){el.classList.add('freed');el.innerHTML='⭐'+gu.name+'<div class="sub">해방됨</div>';}
-    else{el.classList.add('active');
-      const explored=st.dongs.filter(d=>d.done&&d.type!=='boss').length;
-      const total=st.dongs.filter(d=>d.type!=='boss').length;
-      if(explored>0)el.classList.add('haspartial');
-      el.innerHTML=gu.name+'<div class="sub">탐사 '+explored+'/'+total+'</div>';
-      el.onclick=()=>openGu(gu.name);
-    }
+  ALL_GU.forEach(gu=>{const el=mapHost.querySelector('[data-gu="'+gu.name+'"]');if(!el)return;const st=S.gus[gu.name];el.onclick=null;
+    let bg='#3a121f',bd='#7a2c44',col='#ff9fb0',txt=gu.name;
+    if(st.type==='alien'){if(st.liberated){bg='#7a5a12';bd='var(--gold)';col='#fff3d6';}else{el.onclick=()=>clickGu(gu.name);}}
+    else{if(st.claimed){bg='#7a5a12';bd='var(--gold)';col='#fff3d6';}else{bg='#0e3850';bd='var(--free)';col='#cdf3ff';el.onclick=()=>clickGu(gu.name);}}
+    el.style.background=bg;el.style.borderColor=bd;el.style.color=col;el.textContent=txt;
   });
 }
-function refreshMap(){ mapMode==='real'?refreshReal():refreshGrid(); }
+function refreshMap(){mapMode==='real'?refreshReal():refreshGrid();}
 
 function refreshHUD(){
   document.getElementById('hpFill').style.width=(S.hp/S.maxHp*100)+'%';
   document.getElementById('hpVal').textContent=S.hp+' / '+S.maxHp;
-  const need=S.rankIdx===0?10:20, base=S.rankIdx===0?0:(S.rankIdx===1?10:20), denom=S.rankIdx<2?(need-base):1, num=S.rankIdx<2?(S.exp-base):0;
+  const need=S.rankIdx===0?10:20,base=S.rankIdx===0?0:10,denom=S.rankIdx<2?(need-base):1,num=S.rankIdx<2?(S.exp-base):0;
   document.getElementById('xpFill').style.width=(S.rankIdx<2?(num/denom*100):100)+'%';
   document.getElementById('xpVal').textContent=S.rankIdx<2?(S.exp+' / '+need):'MAX';
   document.getElementById('rankName').textContent=RANKS[S.rankIdx].name;
   document.getElementById('rankAtk').textContent='💥 공격력 '+RANKS[S.rankIdx].atk;
-  document.getElementById('coreCount').textContent=S.freed+' / 6';
-  document.getElementById('passPill').textContent='🎫 패스권 '+S.pass;
-  document.getElementById('hpkitPill').textContent='💊 회복제 '+S.hpkit;
+  document.getElementById('coreCount').textContent=S.libAlien+' / '+S.target;
+  document.getElementById('killPill').textContent='💥 퇴치권 '+S.kill;
+  document.getElementById('diffPill').textContent='난이도 '+DIFF[S.diff].label;
 }
 
-/* ============================================================
-   체력/경험치
-   ============================================================ */
+/* ============================================================ 체력/경험치 */
 function loseHP(){S.hp=Math.max(0,S.hp-5);refreshHUD();if(S.hp<=0){setTimeout(rescueMission,400);return true;}return false;}
 function gainExp(){const g=1+Math.floor(Math.random()*3);S.exp+=g;const nr=rankOf(S.exp);refreshHUD();if(nr>S.rankIdx){S.rankIdx=nr;refreshHUD();toast('🎖️ 계급 상승! '+RANKS[nr].name+' (공격력 '+RANKS[nr].atk+')');}return g;}
 
-/* ============================================================
-   문제 생성
-   ============================================================ */
+/* ============================================================ 문제 생성 */
 function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
 function makeProblem(){
   const k=ri(1,4);
@@ -474,16 +414,13 @@ function makeProblem(){
   const b=ri(12,38),q=ri(2,19),r=ri(1,b-1),dd=b*q+r;return{kind:'나눗셈 (나머지)',text:dd+' ÷ '+b,fields:[{label:'몫',ans:q},{label:'나머지',ans:r}]};
 }
 
-/* ============================================================
-   문제 모달
-   ============================================================ */
+/* ============================================================ 문제 모달 */
 const qScrim=document.getElementById('qScrim');
 function showProblem(opt){
   document.getElementById('qTitle').textContent=opt.title;
   document.getElementById('qSub').innerHTML=opt.sub||'';
   document.getElementById('alienBox').innerHTML=opt.alienHTML||'';
-  renderQuestion(opt);
-  openScrim('qScrim');
+  renderQuestion(opt);openScrim('qScrim');
 }
 function renderQuestion(opt){
   const p=makeProblem();
@@ -496,121 +433,131 @@ function renderQuestion(opt){
   const fb=document.getElementById('qFeedback');fb.textContent='';fb.className='feedback';
   const bc=document.getElementById('qButtons');bc.innerHTML='';
   const sb=document.createElement('button');sb.className='btn go';sb.textContent='발사! 🚀';sb.onclick=submit;bc.appendChild(sb);
-  if(opt.allowPass&&S.pass>0){const pb=document.createElement('button');pb.className='btn';pb.textContent='🎫 패스권 사용';pb.onclick=()=>{S.pass--;refreshHUD();correct(true);};bc.appendChild(pb);}
-  function submit(){const ok=p.fields.every((f,i)=>{const v=inputs[i].value.trim();return v!==''&&Number(v)===f.ans;});ok?correct(false):wrong();}
-  function correct(byPass){sGood();fb.textContent=byPass?'🎫 패스권으로 명중!':'정답! 명중! 💥';fb.className='feedback good';bc.innerHTML='';setTimeout(()=>opt.onCorrect(),420);}
-  function wrong(){sBad();fb.textContent='빗나갔다! 체력 -5 😖';fb.className='feedback bad';opt.onWrong&&opt.onWrong();}
+  if(opt.allowKill&&S.kill>0){const kb=document.createElement('button');kb.className='btn';kb.style.borderColor='var(--alien)';kb.textContent='💥 퇴치권 (즉시 처치)';kb.onclick=()=>{S.kill--;refreshHUD();sGood();fb.textContent='💥 퇴치권 발동! 대장 외계인 처치!';fb.className='feedback good';bc.innerHTML='';setTimeout(opt.onKill,420);};bc.appendChild(kb);}
+  function submit(){const ok=p.fields.every((f,i)=>{const v=inputs[i].value.trim();return v!==''&&Number(v)===f.ans;});ok?good():bad();}
+  function good(){sGood();fb.textContent='정답! 명중! 💥';fb.className='feedback good';bc.innerHTML='';setTimeout(()=>opt.onCorrect(),420);}
+  function bad(){sBad();fb.textContent='빗나갔다! 체력 -5 😖';fb.className='feedback bad';opt.onWrong&&opt.onWrong();}
 }
 
-/* ============================================================
-   구/동
-   ============================================================ */
+/* ============================================================ 구 클릭 분기 */
+function clickGu(name){
+  const gu=S.gus[name];
+  if(gu.type==='safe'){
+    if(gu.claimed){toast('이미 탈환한 안전구역이에요.');return;}
+    if(S.lockedGu===name){toast('🔒 잠김! 다른 구를 다녀온 뒤 다시 오세요.');return;}
+    S.lockedGu=null; safeGuProblem(name);
+  }else{
+    if(gu.liberated){toast('이미 해방된 구역이에요.');return;}
+    S.lockedGu=null; openGu(name);
+  }
+}
+/* ----- 안전구역(파란 구): 문제 → 경험치 ----- */
+function safeGuProblem(name){
+  showProblem({
+    title:'안전구역 탈환 — '+name,
+    sub:'문제를 맞히면 경험치를 얻어요. <b style="color:var(--gold)">틀리면 이 구역이 잠깁니다!</b>',
+    alienHTML:'<div class="alien-face">🧑‍🚀</div>',
+    onCorrect:()=>{S.gus[name].claimed=true;S.lockedGu=null;const g=gainExp();closeScrim('qScrim');refreshMap();info('⭐','경험치 +'+g,name+'을(를) 되찾았다! 금색으로 빛납니다.');},
+    onWrong:()=>{const r=loseHP();if(!r){S.lockedGu=name;setTimeout(()=>{closeScrim('qScrim');refreshMap();toast('🔒 '+name+' 잠김! 다른 구를 다녀온 뒤 다시 오세요.');},700);}}
+  });
+}
+/* ----- 외계인 구역: 동 목록 (보스 정체 숨김) ----- */
 function openGu(name){
-  S.curGu=name;const st=S.gus[name];
+  S.curGu=name;const gu=S.gus[name];
   document.getElementById('dongTitle').textContent=name;
-  document.getElementById('dongMeta').innerHTML=st.core?'⚠️ 이 구에서 외계 대장 신호가 감지됩니다...':'구역을 선택해 탐사하세요. (다른 동을 거치면 재도전 가능)';
+  const left=gu.dongs.filter(d=>!d.done).length;
+  document.getElementById('dongMeta').innerHTML='⚠️ 외계 기운 감지! 남은 미션 <b style="color:var(--danger)">'+left+'개</b>. 모든 동을 처리하면 이 구가 해방돼요.';
   const grid=document.getElementById('dongGrid');grid.innerHTML='';
-  st.dongs.forEach(d=>{
-    const el=document.createElement('div');el.className='dong';
-    let ic='❓',ds='미탐사 구역';
-    if(d.type==='boss'){if(d.done){el.classList.add('bossdone');ic='🏳️';ds='해방 완료';}else{el.classList.add('boss');ic='👾';ds='대장 외계인 체력 '+d.hp+'칸';}}
-    else if(d.done){el.classList.add('done');if(d.type==='exp'){ic='⭐';ds='탐사 완료 (경험치 획득)';}else{ic='📦';ds='보급 완료';}}
+  gu.dongs.forEach(d=>{
+    const el=document.createElement('div');el.className='dong';let ic='❓',ds='미탐사 구역';
+    if(d.done){el.classList.add('done');if(d.kind==='boss'){ic='🏳️';ds='외계인 퇴치 완료';}else{ic='📦';ds='보급 완료';}}
     el.innerHTML='<div class="ic">'+ic+'</div><div><div class="nm">'+d.name+'</div><div class="ds">'+ds+'</div></div>';
-    if(!(d.done&&d.type!=='boss')&&!(d.type==='boss'&&d.done))el.onclick=()=>enterDong(name,d);
+    if(!d.done)el.onclick=()=>enterDong(name,d);
     grid.appendChild(el);
   });
   openScrim('dongScrim');
 }
-function enterDong(guName,d){
-  S.curDong=d;
-  if(d.type==='boss'){closeScrim('dongScrim');bossRound(guName,d);}
-  else if(d.type==='item'){closeScrim('dongScrim');itemDong(d);}
-  else{ if(S.lockedDong===d.id){toast('🚫 이 구역은 잠겼어요. 다른 동을 먼저 다녀오세요!');return;} closeScrim('dongScrim');expDong(d); }
+function enterDong(name,d){
+  S.lockedGu=null;closeScrim('dongScrim');
+  if(d.kind==='boss'){
+    info('⚠️','대장 외계인 등장!',name+' '+d.name+'에 숨어 있던 대장 외계인이 모습을 드러냈다! 수학으로 맞서 싸워라.',()=>bossRound(name,d),'전투 시작 ⚔️');
+  }else{itemDong(name,d);}
 }
-function expDong(d){
-  showProblem({
-    title:'외계 정찰병 출현!',
-    sub:'문제를 맞히면 경험치를 얻어요. <b style="color:var(--gold)">틀리면 잠금!</b>',
-    alienHTML:'<div class="alien-face">👽</div>',
-    allowPass:true,
-    onCorrect:()=>{d.done=true;S.lockedDong=null;const g=gainExp();closeScrim('qScrim');info('⭐','경험치 +'+g,'정찰병을 물리쳤다! 이 구역이 금색으로 빛납니다.');refreshMap();},
-    onWrong:()=>{const r=loseHP();if(!r){S.lockedDong=d.id;setTimeout(()=>{closeScrim('qScrim');toast('🔒 잠겼어요! 다른 동을 거친 뒤 다시 오세요.');refreshMap();},700);}}
-  });
-}
-function itemDong(d){
-  d.done=true;
-  if(d.item==='hp'){S.hp=Math.min(S.maxHp,S.hp+20);refreshHUD();info('💊','체력 회복제 발견!','보급 상자에서 회복제를 얻었다. 체력 +20!');}
-  else{S.pass++;refreshHUD();info('🎫','문제 패스권 획득!','어려운 문제를 한 번 자동 정답 처리할 수 있어요. (전투/탐사 중 사용)');}
-  refreshMap();
-}
-function bossRound(guName,d){
-  const st=S.gus[guName];
-  const opt={
-    title:'⚔️ 대장 외계인 전투!',
-    sub:guName+' · 한 번 명중하면 <b style="color:var(--alien)">'+RANKS[S.rankIdx].atk+'칸</b> 데미지',
-    alienHTML:bossHTML(d), allowPass:true,
-    onCorrect:()=>{
-      d.hp=Math.max(0,d.hp-RANKS[S.rankIdx].atk);
-      if(d.hp<=0){
-        d.done=true;st.freed=true;S.freed++;closeScrim('qScrim');refreshMap();refreshHUD();sWin();
-        info('🏳️','거점 해방!',guName+'의 대장 외계인을 처치했다! ('+S.freed+'/6)');
-        if(S.freed>=6)setTimeout(winGame,900);
-      }else{
-        toast('💥 명중! 남은 체력 '+d.hp+'칸');
-        document.getElementById('alienBox').innerHTML=bossHTML(d);
-        setTimeout(()=>{if(qScrim.classList.contains('on')){opt.sub=guName+' · 한 번 명중하면 <b style="color:var(--alien)">'+RANKS[S.rankIdx].atk+'칸</b> 데미지';document.getElementById('qSub').innerHTML=opt.sub;renderQuestion(opt);}},250);
-      }
-    },
-    onWrong:()=>{const r=loseHP();if(!r)setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},800);}
-  };
+/* ----- 보스 전투 ----- */
+function bossSub(name,d){return name+' '+d.name+' · 명중 시 <b style="color:var(--alien)">'+RANKS[S.rankIdx].atk+'</b>씩 감소 (남은 체력 '+d.hp+'/'+d.maxhp+')';}
+function bossHTML(d){let pips='';for(let i=0;i<d.maxhp;i++)pips+='<div class="pip '+(i>=d.hp?'gone':'')+'"></div>';return '<div class="alien-face">👾</div><div class="hpwrap"><div class="hplabel">외계인 체력 '+d.hp+' / '+d.maxhp+'</div><div class="pips">'+pips+'</div></div>';}
+function bossRound(name,d){
+  const gu=S.gus[name];
+  const opt={title:'⚔️ 대장 외계인 전투!',sub:bossSub(name,d),alienHTML:bossHTML(d),allowKill:true};
+  function damage(dmg){
+    d.hp=Math.max(0,d.hp-dmg);
+    if(d.hp<=0){defeat();}
+    else{toast('💥 명중! 남은 체력 '+d.hp);document.getElementById('alienBox').innerHTML=bossHTML(d);opt.sub=bossSub(name,d);document.getElementById('qSub').innerHTML=opt.sub;setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},250);}
+  }
+  function defeat(){
+    d.done=true;closeScrim('qScrim');sWin();refreshMap();
+    const res=checkGuLiberated(name);
+    const msg=d.name+'의 대장 외계인을 처치했다!'+(res?(' '+name+'이(가) 완전히 해방되었습니다! 🎉'):'');
+    if(res==='win'){info('🏳️','외계인 퇴치!',msg,()=>winGame());return;}
+    info('🏳️','외계인 퇴치!',msg,()=>{if(!gu.liberated)openGu(name);});
+  }
+  opt.onCorrect=()=>damage(RANKS[S.rankIdx].atk);
+  opt.onKill=()=>damage(d.hp);
+  opt.onWrong=()=>{const r=loseHP();if(!r)setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},800);};
   showProblem(opt);
 }
-function bossHTML(d){let pips='';for(let i=0;i<d.maxhp;i++)pips+='<div class="pip '+(i>=d.hp?'gone':'')+'"></div>';return '<div class="alien-face">👾</div><div class="pips">'+pips+'</div>';}
-
-function rescueMission(){closeScrim('qScrim');let solved=0;rescueRound(()=>solved,(v)=>solved=v);}
-function rescueRound(get,set){
-  const opt={
-    title:'🚑 긴급구조대 출동!',
-    sub:'체력이 바닥났다! 문제 <b style="color:var(--alien)">'+(5-get())+'개</b>를 더 풀면 체력이 50으로 회복돼요.',
-    alienHTML:'<div class="alien-face">🚑</div>', allowPass:false,
-    onCorrect:()=>{set(get()+1);if(get()>=5){S.hp=S.maxHp;refreshHUD();closeScrim('qScrim');info('💚','구조 완료!','구조대 도착! 체력이 50으로 회복되었습니다.');}else{toast('🩹 구조 진행 '+get()+'/5');opt.sub='체력이 바닥났다! 문제 <b style="color:var(--alien)">'+(5-get())+'개</b>를 더 풀면 회복돼요.';document.getElementById('qSub').innerHTML=opt.sub;setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},250);}},
-    onWrong:()=>{const fb=document.getElementById('qFeedback');fb.textContent='괜찮아요, 다시 해봐요! (체력은 더 줄지 않아요)';fb.className='feedback';setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},800);}
-  };
+/* ----- 아이템 동 ----- */
+function itemDong(name,d){
+  d.done=true;const gu=S.gus[name];
+  const res=checkGuLiberated(name);
+  const lib=res?(' '+name+'이(가) 완전히 해방되었습니다! 🎉'):'';
+  const after=()=>{if(res==='win'){winGame();}else if(!gu.liberated){openGu(name);}};
+  if(d.item==='hp'){S.hp=Math.min(S.maxHp,S.hp+20);refreshHUD();refreshMap();info('💊','체력 회복제!','보급 상자에서 회복제를 얻었다. 체력 +20!'+lib,after);}
+  else{S.kill++;refreshHUD();refreshMap();info('💥','퇴치권 획득!','대장 외계인을 즉시 처치할 수 있는 퇴치권을 얻었다! 전투 중 "퇴치권" 버튼으로 사용하세요.'+lib,after);}
+}
+function checkGuLiberated(name){
+  const gu=S.gus[name];
+  if(gu.dongs.every(d=>d.done)){
+    if(!gu.liberated){gu.liberated=true;S.libAlien++;refreshHUD();refreshMap();}
+    if(S.libAlien>=S.target)return 'win';
+    return true;
+  }
+  return false;
+}
+/* ----- 긴급 구조대: 5문제 → 체력 20 ----- */
+function rescueMission(){closeScrim('qScrim');let solved=0;
+  const opt={title:'🚑 긴급구조대 출동!',alienHTML:'<div class="alien-face">🚑</div>',allowKill:false};
+  function set(){opt.sub='체력이 바닥났다! 문제 <b style="color:var(--alien)">'+(5-solved)+'개</b>를 더 풀면 구조대가 체력을 20 채워줘요.';}
+  set();
+  opt.onCorrect=()=>{solved++;if(solved>=5){S.hp=20;refreshHUD();closeScrim('qScrim');info('💚','구조 완료!','구조대 도착! 체력이 20으로 회복되었습니다.');}else{toast('🩹 구조 진행 '+solved+'/5');set();document.getElementById('qSub').innerHTML=opt.sub;setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},250);}};
+  opt.onWrong=()=>{const fb=document.getElementById('qFeedback');fb.textContent='괜찮아요, 다시 해봐요! (체력은 더 줄지 않아요)';fb.className='feedback';setTimeout(()=>{if(qScrim.classList.contains('on'))renderQuestion(opt);},800);};
   showProblem(opt);
 }
 
-/* ============================================================
-   유틸
-   ============================================================ */
+/* ============================================================ 유틸 */
 function openScrim(id){document.getElementById(id).classList.add('on');}
-function closeScrim(id){document.getElementById(id).classList.remove('on');if(id==='dongScrim'&&S&&S.curGu)refreshMap();}
-function info(icon,title,body){document.getElementById('infoIcon').textContent=icon;document.getElementById('infoTitle').textContent=title;document.getElementById('infoBody').textContent=body;openScrim('infoScrim');}
+function closeScrim(id){document.getElementById(id).classList.remove('on');if(id==='dongScrim')refreshMap();}
+function info(icon,title,body,cb,btn){document.getElementById('infoIcon').textContent=icon;document.getElementById('infoTitle').textContent=title;document.getElementById('infoBody').textContent=body;const b=document.getElementById('infoBtn');b.textContent=btn||'확인';b.onclick=()=>{closeScrim('infoScrim');if(cb)cb();};openScrim('infoScrim');}
 let toastT;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1900);}
 
-/* ============================================================
-   시작/종료
-   ============================================================ */
-async function startGame(){
-  S=freshState();
+/* ============================================================ 시작/종료 */
+async function startGame(diff){
+  S=freshState(diff);
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('winScreen').classList.add('hidden');
   document.getElementById('game').style.display='block';
   refreshHUD();
-  const note=document.getElementById('mapNote');
-  note.style.display='block';note.textContent='실제 서울 지도를 불러오는 중…';
+  const note=document.getElementById('mapNote');note.style.display='block';note.textContent='실제 서울 지도를 불러오는 중…';
   const geo=await loadSeoulGeo();
-  if(geo){ buildRealMap(geo); document.getElementById('mapModeTag').textContent='실제 행정구역'; note.style.display='none'; }
-  else{ buildGridMap(); document.getElementById('mapModeTag').textContent='간략 지도(오프라인)'; note.textContent='⚠️ 실제 지도 데이터를 불러오지 못해 간략 지도로 진행합니다.'; }
+  if(geo){buildRealMap(geo);document.getElementById('mapModeTag').textContent='(실제 행정구역)';note.style.display='none';}
+  else{buildGridMap();document.getElementById('mapModeTag').textContent='(간략 지도·오프라인)';note.textContent='⚠️ 실제 지도 데이터를 불러오지 못해 간략 지도로 진행합니다.';}
   refreshMap();
 }
-function resetGame(){if(confirm('처음부터 다시 시작할까요? (진행 상황이 사라져요)'))startGame();}
+function resetGame(){if(confirm('처음부터 다시 시작할까요? (진행 상황이 사라져요)')){document.getElementById('game').style.display='none';document.getElementById('startScreen').classList.remove('hidden');}}
 function winGame(){
-  if(mapMode==='real'){
-    ALL_GU.forEach((gu,i)=>{const p=geoPaths[gu.name],t=geoLabels[gu.name];if(!p)return;setTimeout(()=>{p.setAttribute('class','geo freed');if(t){t.setAttribute('class','geolab free');}},i*45);});
-  }else{
-    ALL_GU.forEach((gu,i)=>{const el=mapHost.querySelector('[data-gu="'+gu.name+'"]');if(!el)return;setTimeout(()=>{el.className='gu freed';el.innerHTML='⭐'+gu.name;},i*45);});
-  }
-  setTimeout(()=>{document.getElementById('winStats').innerHTML='최종 계급: <b style="color:var(--alien)">'+RANKS[S.rankIdx].name+'</b><br>남은 체력: '+S.hp+' / 50<br>서울의 모든 빛을 되찾았습니다. 수고했어요, 대원! 🌌';document.getElementById('winScreen').classList.remove('hidden');sWin();},ALL_GU.length*45+500);
+  const order=ALL_GU.slice();
+  order.forEach((gu,i)=>{setTimeout(()=>{const p=geoPaths[gu.name],t=geoLabels[gu.name];if(p){p.setAttribute('class','geo done');if(t)t.setAttribute('class','geolab done');}else{const el=mapHost.querySelector('[data-gu="'+gu.name+'"]');if(el){el.style.background='#7a5a12';el.style.borderColor='var(--gold)';el.style.color='#fff3d6';}}},i*40);});
+  setTimeout(()=>{document.getElementById('winStats').innerHTML='난이도: <b style="color:var(--free)">'+DIFF[S.diff].label+'</b> · 거점 '+S.libAlien+'/'+S.target+' 해방<br>최종 계급: <b style="color:var(--alien)">'+RANKS[S.rankIdx].name+'</b> · 남은 체력 '+S.hp+'<br>서울의 빛을 되찾았습니다. 수고했어요, 대원! 🌌';document.getElementById('winScreen').classList.remove('hidden');sWin();},order.length*40+500);
 }
 </script>
 </body>
